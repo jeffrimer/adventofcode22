@@ -5,9 +5,12 @@ string1[0].innerHTML = '4920\n3254\n4147\n1193\n6516\n4361\n7068\n2021\n\n5147\n
 
 var text = string1[0].innerHTML;
 var replacedText = text.replace(/\n/g, ' ');
+
+// splitting the long string into an array of arrays for each elf
 var splitText = replacedText.split('  ');
 var splitNumArray = [];
 
+// converting the strings in each elf array to numbers
 for(var i=0; i <= splitText.length; i++) {
     let arr = splitText[i].split(' ').map(Number);
     splitNumArray[i] = arr;
@@ -15,6 +18,7 @@ for(var i=0; i <= splitText.length; i++) {
 
 var listOfCalories = [];
 
+// summing the arrays for each elf
 for(i=0; i<splitNumArray.length; i++) {
     const sum = splitNumArray[i].reduce((a, b) => a + b, 0);
     listOfCalories.push(sum);
@@ -25,10 +29,12 @@ listOfCalories.pop();
 
 Math.max(...listOfCalories);
 
+// determined elf # by just looking through the array manually and matching the highest value with array number
 // Elf #163, 69177 calories
 
 
 // PART 2
+// sorting elf summed calorie array in decending order
 listOfCalories.sort(function(a, b){return b - a});
 listOfCalories[0] + listOfCalories[1] + listOfCalories[2]
 
