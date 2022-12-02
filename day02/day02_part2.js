@@ -8,9 +8,9 @@ input.addEventListener('change', () => {
    let totalScore = 0;
 
    const handValues = {
-      X: 1, // rock
-      Y: 2, // paper
-      Z: 3  // scissors
+      rock: 1, // rock
+      paper: 2, // paper
+      scissors: 3  // scissors
    }
    const gameValues = {
       lose: 0,
@@ -39,17 +39,17 @@ input.addEventListener('change', () => {
       switch(opponent) {
          case 'A': // opponent rock
             switch(me) {
-               case 'X': // rock - draw
-                  points += gameValues.draw;
-                  points += handValues.X;
-                  break;
-               case 'Y': // paper - win
-                  points += gameValues.win;
-                  points += handValues.Y;
-                  break;
-               case 'Z': // scissors - lose
+               case 'X': // lose, scissors
                   points += gameValues.lose;
-                  points += handValues.Z;
+                  points += handValues.scissors;
+                  break;
+               case 'Y': // draw, rock
+                  points += gameValues.draw;
+                  points += handValues.rock;
+                  break;
+               case 'Z': // win, paper
+                  points += gameValues.win;
+                  points += handValues.paper;
                   break;
                default:
                   textarea.value = 'something went wrong ' + points;
@@ -57,17 +57,17 @@ input.addEventListener('change', () => {
             return points;
          case 'B': // opponent paper
             switch(me) {
-               case 'X': // rock - lose
+               case 'X': // lose, rock
                   points += gameValues.lose;
-                  points += handValues.X;
+                  points += handValues.rock;
                   break;
-               case 'Y': // paper - draw
+               case 'Y': // draw, paper
                   points += gameValues.draw;
-                  points += handValues.Y;
+                  points += handValues.paper;
                   break;
-               case 'Z': // scissors - win
+               case 'Z': // win, scissors
                   points += gameValues.win;
-                  points += handValues.Z;
+                  points += handValues.scissors;
                   break;
                default:
                   textarea.value = 'something went wrong ' + points;
@@ -75,17 +75,17 @@ input.addEventListener('change', () => {
             return points;
          case 'C': //opponent scissors
             switch(me) {
-               case 'X': // rock - win
-                  points += gameValues.win;
-                  points += handValues.X;
-                  break;
-               case 'Y': // paper - lose
+               case 'X': // lose, paper
                   points += gameValues.lose;
-                  points += handValues.Y;
+                  points += handValues.paper;
                   break;
-               case 'Z': // scissors - draw
+               case 'Y': // draw, scissors
                   points += gameValues.draw;
-                  points += handValues.Z;
+                  points += handValues.scissors;
+                  break;
+               case 'Z': // win, rock
+                  points += gameValues.win;
+                  points += handValues.rock;
                   break;
                default:
                   textarea.value = 'something went wrong ' + points;
