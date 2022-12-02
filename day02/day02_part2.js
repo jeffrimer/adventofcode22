@@ -17,11 +17,6 @@ input.addEventListener('change', () => {
       draw: 3,
       win: 6
    }
-   const gameResult = {
-      X: gameValues.lose,
-      Y: gameValues.draw,
-      Z: gameValues.win
-   }
 
    reader.onload = (e) => {
       const file = e.target.result;
@@ -30,7 +25,7 @@ input.addEventListener('change', () => {
          totalScore += getScoreForGame(lines[i].charAt('0'), lines[i].charAt('2'));
       }
       textarea.value = totalScore;
-      // totalScore = 11906, correct answer
+      // totalScore = 11186, correct answer
    }
 
    getScoreForGame = (opponent, me) => {
