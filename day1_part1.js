@@ -26,3 +26,10 @@ listOfCalories.pop();
 Math.max(...listOfCalories);
 
 // Elf #163, 69177 calories
+
+
+// PART 2
+listOfCalories.sort(function(a, b){return b - a});
+listOfCalories[0] + listOfCalories[1] + listOfCalories[2]
+
+// 207456 total calories for the top 3
