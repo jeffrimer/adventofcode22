@@ -1,95 +1,45 @@
 let input = document.querySelector('input');
 let textarea = document.querySelector('textarea');
-
 input.addEventListener('change', () => {
    let files = input.files;
    const file = files[0];
    let reader = new FileReader();
-   let totalScore = 0;
-
-   const handValues = {
-      rock: 1, // rock
-      paper: 2, // paper
-      scissors: 3  // scissors
-   }
-   const gameValues = {
-      lose: 0,
-      draw: 3,
-      win: 6
-   }
 
    reader.onload = (e) => {
       const file = e.target.result;
-      const lines = file.split(/\r\n|\n/);
-      for(i = 0; i < lines.length; i++) {
-         totalScore += getScoreForGame(lines[i].charAt('0'), lines[i].charAt('2'));
+      const rucksacks = file.split(/\r\n|\n/);
+      let commonBadge = [];
+      let prioritySum = 0;
+      let groupNumber = 0;
+      const priorityValue = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+         's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+         'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+      for(let i = 0; i < rucksacks.length/3; i++) {
+         let arr1 = Array.from(rucksacks[groupNumber]);
+         let arr2 = Array.from(rucksacks[groupNumber+1]);
+         let arr3 = Array.from(rucksacks[groupNumber+2]);
+         console.log(arr1, arr2, arr3);
+         for(let j = 0; j < arr1.length; j++) {
+            if(arr2.includes(arr1[j])) {
+               if(arr3.includes(arr1[j])) {
+                  groupNumber += 3;
+                  commonBadge.push(arr1[j]);
+                  break;
+               }
+            }
+         }
+         console.log('commonBadge: ', commonBadge);
       }
-      textarea.value = totalScore;
-      // totalScore = 11186, correct answer
-   }
 
-   getScoreForGame = (opponent, me) => {
-      let points = 0;
-
-      switch(opponent) {
-         case 'A': // opponent rock
-            switch(me) {
-               case 'X': // lose, scissors
-                  points += gameValues.lose;
-                  points += handValues.scissors;
-                  break;
-               case 'Y': // draw, rock
-                  points += gameValues.draw;
-                  points += handValues.rock;
-                  break;
-               case 'Z': // win, paper
-                  points += gameValues.win;
-                  points += handValues.paper;
-                  break;
-               default:
-                  textarea.value = 'something went wrong ' + points;
-            }
-            return points;
-         case 'B': // opponent paper
-            switch(me) {
-               case 'X': // lose, rock
-                  points += gameValues.lose;
-                  points += handValues.rock;
-                  break;
-               case 'Y': // draw, paper
-                  points += gameValues.draw;
-                  points += handValues.paper;
-                  break;
-               case 'Z': // win, scissors
-                  points += gameValues.win;
-                  points += handValues.scissors;
-                  break;
-               default:
-                  textarea.value = 'something went wrong ' + points;
-            }
-            return points;
-         case 'C': //opponent scissors
-            switch(me) {
-               case 'X': // lose, paper
-                  points += gameValues.lose;
-                  points += handValues.paper;
-                  break;
-               case 'Y': // draw, scissors
-                  points += gameValues.draw;
-                  points += handValues.scissors;
-                  break;
-               case 'Z': // win, rock
-                  points += gameValues.win;
-                  points += handValues.rock;
-                  break;
-               default:
-                  textarea.value = 'something went wrong ' + points;
-            }
-            return points;
-         default:
-            textarea.value = 'something went wrong ' + points;
+      for(let k = 0; k < commonBadge.length; k++) {
+         prioritySum += (priorityValue.indexOf(commonBadge[k]) + 1);
       }
-   }
 
+      console.log(prioritySum);
+
+      // answer: 2508
+
+      textarea.value = JSON.stringify(commonBadge);
+   }
    reader.readAsText(file);
 });
